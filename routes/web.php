@@ -40,3 +40,6 @@ Route::get('/blog', function () {
 });
 
 Route::get('/quotes', 'QuotesController@printQuote');
+
+
+Route::resource('posts', 'PostController');
