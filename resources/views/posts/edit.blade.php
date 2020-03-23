@@ -2,7 +2,7 @@
     @csrf
     @method('patch')
     <input type="text" name="title" value="{{ $post->title }}"/>
-    <textarea name="content" value="{{ $post->content }}></textarea>
+    <textarea name="content" value="{{ $post->content }}">{{ $post->content }}</textarea>
     <button type="submit">Update post</button>
 
 </form>

@@ -103,6 +103,7 @@
                     <a href="/faq">FAQ</a>
                     <a href="/blog">Blog</a>
                     <a href="/quotes">Quotes</a>
+                    <a href="/posts">Posts</a>
                 </div>
 
             </div>

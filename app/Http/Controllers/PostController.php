@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -38,9 +39,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         try {
-            $this->validate($request. [
+            $this->validate($request, [
                     'title' => 'required',
-                    'content' => 'required',
+                    'content' => 'required'
                 ]);
 
             $post = new Post();
@@ -87,7 +88,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('post.edit', compact('post'));
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -102,7 +103,7 @@ class PostController extends Controller
         try {
             $this-> validate($request, [
                 'title' => 'required',
-                'content' => 'required',
+                'content' => 'required'
             ]);
 
             $post = Post::findOrFail($id);
@@ -110,11 +111,11 @@ class PostController extends Controller
             $post->content = $request->get('content');
             $post->save();
 
-            return redirect(route('post.show', ['post' => $id]));
+            return redirect(route('posts.show', ['post' => $id]));
 
 
         } catch (\Exception $e) {
-            return redirect(route('post.edit', ['post' => $id]));
+            return redirect(route('posts.edit', ['post' => $id]));
         }
     }
 
@@ -129,6 +130,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect(route('post.index'));
+        return redirect(route('posts.index'));
     }
 }
