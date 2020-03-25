@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\PostServiceInterface;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
 class PostController extends Controller
 {
     private const USER_ID = 1;
+
+    private $postService;
+    public function __construct(PostServiceInterface $postService)
+    {
+        $this->postService = $postService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,17 +73,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //$post = Post::find($id); // /posts/1        NULL
-
-        //1 variant
-        $post = Post::findOrFail($id); // /posts/1  404 page
-
-        /*2 variant
-        $qb = Post::where('id', $id);
-        //$post = $qb->get(); //возвр коллекцию
-        $post = $qb->first(); //возвр первую запись
-        */
-        return view('posts.show', compact('post'));
+        try {
+            $post = $this->postService->getPostById($id);
+            return view('posts.show', compact('post'));
+        } catch (\Exception $e) {
+            abort(404, $e->getMessage());
+        }
 
     }
 
